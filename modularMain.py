@@ -13,17 +13,19 @@ feature_columns = ['age', 'workclass', 'education', 'education-num',
        'capital-gain', 'capital-loss', 'hours-per-week', 'native-country']
 
 adult_data_frame = fetch_data('adult')
-# adult_labels = adult_data_frame.pop('target').values
-# adult_data = adult_data_frame[feature_columns]
 
-print(adult_data_frame.isnull().sum())
+
+# print(adult_data_frame.isnull().sum())
 adult_data_frame = sanitize(adult_data_frame)
+adult_labels = adult_data_frame.pop('target').values
+adult_data = adult_data_frame[feature_columns]
 
 
 # print(logReg(adult_data,adult_labels, 14))
 # print(sgdcalssifier(adult_data, adult_labels))
-# print(supportVectorMachine(adult_data_frame[feature_columns], adult_data_frame['target']))
+print(supportVectorMachine(adult_data, adult_labels))
 # print(adult_data_frame.head())
+
 ##################################
 
 # Top features that predict income are:

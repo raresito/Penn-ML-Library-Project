@@ -37,6 +37,6 @@ def sanitize(adult_data_frame):
     # Set parameter name as index
     param_df = param_df.set_index('parameter')
 
-    print(param_df)
+    # print(param_df)
 
     return new_data

@@ -25,11 +25,11 @@ def sgdcalssifier(adult_data, adult_labels):
     # rfe_selector =
 
 
-    cols = skb.get_support(indices=True)
-    print(cols)
+#     cols = skb.get_support(indices=True)
+#     print(cols)
 
     #Fit Machine
-    sgdc = SGDClassifier(max_iter=1000, tol=1e-3)
+    sgdc = SGDClassifier(alpha=0.001, loss='log', max_iter=1000, penalty='l1')
     sgdc.fit(train_data, train_labels)
 
     # Best Parameters
@@ -43,21 +43,21 @@ def sgdcalssifier(adult_data, adult_labels):
     #         "alpha": [0.0001, 0.001, 0.01, 0.1],
     #         "max_iter": [100, 1000, 10000, 100000]}
 
-    # Most complex test run.
-    grid = {"loss": ["hinge", "log"],
-            "penalty": ["none", "l2", "l1", "elasticnet"],
-            "alpha": [0.0001, 0.001],
-            "max_iter": [100,1000]}
-
-    # Result of complex test
-    # {'alpha': 0.001, 'loss': 'log', 'max_iter': 1000, 'penalty': 'l1'}
-
-    sgdc_cv = GridSearchCV(sgdc, grid, cv=5)
-    sgdc_cv.fit(train_data, train_labels)
-
-    print("tuned hpyerparameters :(best parameters) ", sgdc_cv.best_params_)
-    print("accuracy :", sgdc_cv.best_score_)
-    print(sgdc_cv.cv_results_)
+    # # Most complex test run.
+    # grid = {"loss": ["hinge", "log"],
+    #         "penalty": ["none", "l2", "l1", "elasticnet"],
+    #         "alpha": [0.0001, 0.001],
+    #         "max_iter": [100,1000]}
+    #
+    # # Result of complex test
+    # # {'alpha': 0.001, 'loss': 'log', 'max_iter': 1000, 'penalty': 'l1'}
+    #
+    # sgdc_cv = GridSearchCV(sgdc, grid, cv=5)
+    # sgdc_cv.fit(train_data, train_labels)
+    #
+    # print("tuned hpyerparameters :(best parameters) ", sgdc_cv.best_params_)
+    # print("accuracy :", sgdc_cv.best_score_)
+    # print(sgdc_cv.cv_results_)
 
     #Predict
     sgdc_prediction = sgdc.predict(test_data)
