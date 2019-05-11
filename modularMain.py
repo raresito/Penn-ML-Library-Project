@@ -1,6 +1,7 @@
 from pmlb import fetch_data, classification_dataset_names
 from Regressions.SGDClassifier_Solver import sgdcalssifier
 from Regressions.SupportVectorMachine_Solver import supportVectorMachine
+from Regressions.RandomForestTree import RandomForestTrees
 import matplotlib.pyplot as plt
 from pandas.plotting import scatter_matrix
 from Enchancers.DataSanitization import sanitize
@@ -24,6 +25,8 @@ adult_data = adult_data_frame[feature_columns]
 # print(logReg(adult_data,adult_labels, 14))
 # print(sgdcalssifier(adult_data, adult_labels))
 print(supportVectorMachine(adult_data, adult_labels))
+# RandomForestTrees(adult_data, adult_labels)
+
 # print(adult_data_frame.head())
 
 ##################################

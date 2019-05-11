@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from Enchancers.MachineEnchancers import quantileTransformationUniformScaler_Custom
 from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import accuracy_score, roc_auc_score, f1_score
 import matplotlib
 import ModelEvaluation
 
@@ -32,6 +33,12 @@ def supportVectorMachine(adult_data, adult_labels):
     #Fit Machine
     LSVC = SVC(kernel='linear', random_state=0, tol=1e-5, C=0.1)
     LSVC.fit(train_data, train_labels)
+    LSVC_prediction = LSVC.predict(test_data)
+
+    rounded = np.round(LSVC_prediction)
+
+    print('Accuracy:', accuracy_score(rounded, test_labels))
+    print('F1 score:', f1_score(rounded, test_labels))
 
     PolySVM = SVC(kernel='poly')
     PolySVM.fit(train_data, train_labels)
@@ -44,7 +51,7 @@ def supportVectorMachine(adult_data, adult_labels):
 
 
     #Predict
-    LSVC_prediction = LSVC.predict(test_data)
+
     LSVC_model = m
     
     Poly_prediction = PolySVM.predict(test_data)

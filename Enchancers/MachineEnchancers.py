@@ -18,4 +18,3 @@ def quantileTransformationUniformScaler_Custom(train_data, test_data):
     train_data = qt.fit_transform(train_data)
     test_data = qt.transform(test_data)
     return train_data, test_data
-
