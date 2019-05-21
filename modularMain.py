@@ -6,25 +6,41 @@ import matplotlib.pyplot as plt
 from pandas.plotting import scatter_matrix
 from Enchancers.DataSanitization import sanitize
 
+import pandas as pd
+
 # Choose data set.
 # adult_data, adult_labels = fetch_data('adult', return_X_y=True, local_cache_dir='./')
 
-feature_columns = ['age', 'workclass', 'education', 'education-num',
-       'marital-status', 'occupation', 'relationship', 'race', 'sex',
+# feature_columns = ['age', 'workclass', 'education', 'educational-num',
+#        'marital-status', 'occupation', 'relationship', 'race', 'gender',
+#        'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'target']
+feature_columns = ['age', 'workclass', 'education', 'educational-num',
+       'marital-status', 'occupation', 'relationship', 'race', 'gender',
        'capital-gain', 'capital-loss', 'hours-per-week', 'native-country']
 
-adult_data_frame = fetch_data('adult')
+# adult_data_frame = fetch_data('adult')
+adult_data_frame = pd.read_csv("./input/adult.csv")
 
+def target_label (row):
+       if(row['income'] == "<=50K"):
+              return 0
+       return 1
+adult_data_frame['target'] = adult_data_frame.apply(lambda row: target_label(row), axis=1)
+print(adult_data_frame.head())
+adult_data_frame.describe()
+adult_data = adult_data_frame[feature_columns]
+adult_labels = adult_data_frame['target']
+print(adult_data.describe(), adult_labels.describe())
 
 # print(adult_data_frame.isnull().sum())
-adult_data_frame = sanitize(adult_data_frame)
-adult_labels = adult_data_frame.pop('target').values
-adult_data = adult_data_frame[feature_columns]
-
-
-# print(logReg(adult_data,adult_labels, 14))
-# print(sgdcalssifier(adult_data, adult_labels))
-print(supportVectorMachine(adult_data, adult_labels))
+# adult_data_frame = sanitize(adult_data_frame)
+# adult_labels = adult_data_frame.pop('income').values
+# adult_data = adult_data_frame[feature_columns]
+#
+#
+# # print(logReg(adult_data,adult_labels, 14))
+# # print(sgdcalssifier(adult_data, adult_labels))
+# print(supportVectorMachine(adult_data, adult_labels))
 # RandomForestTrees(adult_data, adult_labels)
 
 # print(adult_data_frame.head())

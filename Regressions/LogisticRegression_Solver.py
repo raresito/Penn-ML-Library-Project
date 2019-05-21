@@ -7,7 +7,7 @@ import random
 import numpy as np
 
 
-def logReg(adult_data, adult_labels, feature_selection = 14):
+def logReg(adult_data, adult_labels):
 
     #Split Data
     train_data, test_data, train_labels, test_labels = train_test_split(adult_data, adult_labels, test_size=0.2,
@@ -16,14 +16,6 @@ def logReg(adult_data, adult_labels, feature_selection = 14):
     # Preprocess Data
     # This Scaler is used according to the results obtained in DataScalaionComparison for Logistical Regression
     train_data, test_data = quantileTransformationUniformScaler_Custom(train_data, test_data)
-
-    # Feature Selection
-    skb = SelectKBest(chi2, k=feature_selection)
-    adult_data_selected = skb.fit_transform(adult_data, adult_labels)
-    adult_data = adult_data_selected
-
-    cols = skb.get_support(indices=True)
-    print(cols)
 
     #Fit Machine
     logreg = LogisticRegression(C = 0.1, max_iter= 1000, penalty= "l1", solver="saga")
